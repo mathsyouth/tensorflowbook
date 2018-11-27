@@ -25,11 +25,13 @@ def evaluate(sess, X, Y):
     # evaluate the resulting trained model
     return
 
+# Create a saver
+saver = tf.train.Saver()
 
 # Launch the graph in a session, setup boilerplate
 with tf.Session() as sess:
 
-    tf.initialize_all_variables().run()
+    tf.global_variables_initializer().run()
 
     X, Y = inputs()
 
@@ -45,9 +47,14 @@ with tf.Session() as sess:
         sess.run([train_op])
         # for debugging and learning purposes, see how the loss gets decremented thru training steps
         if step % 10 == 0:
-            print "loss: ", sess.run([total_loss])
+            print("loss: ", sess.run([total_loss]))
+        if step % 1000 = 0:
+            saver.save(sess, 'my-model', global_step=step)
 
     evaluate(sess, X, Y)
+    
+    # evaluation
+    saver.save(sess, 'my-model', global_step=training_steps)
 
     coord.request_stop()
     coord.join(threads)
