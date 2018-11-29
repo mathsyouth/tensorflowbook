@@ -48,7 +48,7 @@ with tf.Session() as sess:
         # for debugging and learning purposes, see how the loss gets decremented thru training steps
         if step % 10 == 0:
             print("loss: ", sess.run([total_loss]))
-        if step % 1000 = 0:
+        if step % 1000 == 0:
             saver.save(sess, 'my-model', global_step=step)
 
     evaluate(sess, X, Y)

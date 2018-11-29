@@ -10,13 +10,11 @@ from SequenceLabellingModel import SequenceLabellingModel
 from batched import batched
 
 params = AttrDict(
-    rnn_cell=tf.nn.rnn_cell.GRUCell,
     rnn_hidden=300,
     optimizer=tf.train.RMSPropOptimizer(0.002),
     gradient_clipping=5,
     batch_size=10,
-    epochs=5,
-    epoch_size=50
+    epochs=5
 )
 
 def get_dataset():
@@ -50,7 +48,7 @@ model = SequenceLabellingModel(data, target, params)
 batches = batched(train_data, train_target, params.batch_size)
 
 sess = tf.Session()
-sess.run(tf.initialize_all_variables())
+sess.run(tf.global_variables_initializer())
 for index, batch in enumerate(batches):
     batch_data = batch[0]
     batch_target = batch[1]
